@@ -2,7 +2,7 @@
 </script>
 <template>
     <section class="h-[40vh] w-full"><img src="~/assets/img/bg-home.jpg" alt="Image library" class="object-cover w-full h-full"/></section>
-    <section class="flex gap-5 justify-between px-20 py-10 font-lato">
+    <section class="flex gap-5 justify-between lg:px-20 md:px-10 px-6 py-10 font-lato">
         <NuxtLink to="/quienesSomos">
             <HomeButton text="¿Quienes somos?"/>
         </NuxtLink>
@@ -13,7 +13,7 @@
             <HomeButton text="Noticias"/>
         </NuxtLink>
     </section>
-    <section class="flex bg-primary text-white p-20 font-lato">
-        <GlobalContacto />
+    <section class="flex bg-primary text-white lg:p-20 md:p-10 p-6 font-lato">
+        <GlobalContacto/>
     </section>
 </template>

@@ -10,7 +10,7 @@ const handleSubmit = (event: Event) => {
       <div class="h-fit w-auto"><img src="~/assets/img/bg-Login.jpg" alt="book open" class="object-contain w-fit"/></div>
       
       <!-- Formulario -->
-      <div class="w-full flex justify-center">
+      <div class="w-full flex justify-center p-6">
         <div class="w-[300px]">
           <h2 class="text-2xl font-bold mb-6 text-senf text-center">Login</h2>
           <form @submit="handleSubmit" class="space-y-4">

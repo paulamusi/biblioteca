@@ -10,7 +10,7 @@
       :items="['Opción 1', 'Opción 2', 'Opción 3']" 
     />
     </section>
-    <section class="flex flex-wrap ">
+    <section class="flex flex-wrap justify-center lg:justify-between mt-6">
         <CatalogoCard autor="Karl Marx" titulo="El capital"/>
         <CatalogoCard autor="Julio Cortazar" titulo="De cronopios y de famas"/>
         <CatalogoCard autor="Ines Vallejo" titulo="El infinito en un junco"/>
