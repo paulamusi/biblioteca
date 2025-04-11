@@ -1,23 +1,43 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useLibros } from "~/composables/useLibros";
+import type { Libro } from "~/types/types";
+
+const { obtenerLibros, busquedaLibro, resultados, buscarLibros, seleccionarLibro } = useLibros();
+
+const { data: libros, error } = await useAsyncData<Libro[]>("libros", obtenerLibros,);
+if (error.value) {
+  console.error("Error al obtener los libros:", error.value);
+}
+
+
+</script>
 <template>
-    <section class=" flex justify-center items-center bg-[url('~/assets/img/bg-catalog.jpg')] bg-cover  h-[30vh] w-full">
+    <div class=" flex flex-wrap justify-center items-center bg-primary w-full py-8 gap-12">
+      <GlobalInputBusqueda
+        v-model:modelValue="busquedaLibro"
+        :showLabel="false"
+        placeholder="Escribe el título del libro.."
+        :searchFunction="buscarLibros"
+        :onSelect="seleccionarLibro"
+        :customTextColor="'text-white'"
+        :customPlaceholderClass="'placeholder-white'"
+        :iconColorClass="'text-white'"
+        :items="resultados"
+      />
         <CatalogoDropdown 
-      buttonText="Categoría: seleccionar..." 
-      :items="['Opción 1', 'Opción 2', 'Opción 3']" 
-    />
-    <CatalogoDropdown 
-      buttonText="Ordenar por: seleccionar..." 
-      :items="['Opción 1', 'Opción 2', 'Opción 3']" 
-    />
-    </section>
-    <section class="flex flex-wrap justify-center lg:justify-between mt-6">
-        <CatalogoCard autor="Karl Marx" titulo="El capital"/>
-        <CatalogoCard autor="Julio Cortazar" titulo="De cronopios y de famas"/>
-        <CatalogoCard autor="Ines Vallejo" titulo="El infinito en un junco"/>
-        <CatalogoCard autor="Herman Hesse" titulo="Demian"/>
-        <CatalogoCard autor="Italo Calvino" titulo="El barón rampante"/>
-        <CatalogoCard autor="Ray Bradbury" titulo="Farenheit 451"/>
-        <CatalogoCard autor="Eckhart Tolle" titulo="El poder del ahora"/>
-        <CatalogoCard autor="Sigmund Freud" titulo="La interpretacion e los sueños"/>
-    </section>
+          buttonText="Categoría:.." 
+          :items="['Opción 1', 'Opción 2', 'Opción 3']" />
+        <CatalogoDropdown 
+          buttonText="Ordenar por:.." 
+          :items="['Opción 1', 'Opción 2', 'Opción 3']" />
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-6 mt-6 justify-items-center">
+      <CatalogoCard 
+         v-for="libro in busquedaLibro.trim() ? resultados : libros"
+        :key="libro.id" 
+        :id="libro.id"
+        :autor="libro.autor ?? ''"  
+        :titulo="libro.titulo ?? ''"
+      />
+  </div>
 </template>

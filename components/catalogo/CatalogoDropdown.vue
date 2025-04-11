@@ -18,9 +18,9 @@ const selectItem = (item: string): void => {
 }
 </script>
 <template>
-    <div class="relative m-10">
+    <div class="relative">
       <button
-        class="text-white p-2 rounded-xl border-2 text-2xl"
+        class="text-white p-2 rounded-xl border-2 text-2xl w-[270px]"
         @click="toggleDropdown"
       >
         {{ buttonText }}

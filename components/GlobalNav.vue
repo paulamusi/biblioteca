@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 
-const route = useRoute()
+
+const supabase = useSupabaseClient();
+const user = useSupabaseUser(); 
+const route = useRoute();
+const router = useRouter();
 
 const isMenuOpen = ref(false);
 const toggleMenu = () => {
@@ -14,6 +18,10 @@ const getLinkClass = (path: string) => ({
   'text-[#D28E45] font-bold': route.path === path,
   'text-black font-light': route.path !== path,
 })
+const signOut = async () => {
+  await supabase.auth.signOut();
+  router.push('/'); 
+};
 watch(() => route.path, closeMenu)
 </script>
 
@@ -33,7 +41,16 @@ watch(() => route.path, closeMenu)
             <NuxtLink :class="getLinkClass('/')" to="/">Inicio</NuxtLink>
             <NuxtLink :class="getLinkClass('/catalogo')" to="/catalogo">Catálogo</NuxtLink>
             <NuxtLink :class="getLinkClass('/contacto')" to="/contacto">Contacto</NuxtLink>
-            <NuxtLink :class="getLinkClass('/login')" to="/login">Login</NuxtLink>
+            <NuxtLink v-if="!user" :class="getLinkClass('/login')" to="/login">Login</NuxtLink>
+        <template v-if="user">
+          <NuxtLink :class="getLinkClass('/admin')" to="/admin">Admin</NuxtLink>
+          <button 
+          @click="signOut" 
+          class="text-black font-light hover:text-[#D28E45] hover:font-bold"
+          >
+            Logout
+          </button>
+        </template>
         </div>
     </nav>
 </template>

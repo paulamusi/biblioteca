@@ -4,5 +4,8 @@ defineProps<{
 }>();
 </script>
 <template>
-<button class="bg-secondary text-primary h-[8rem] w-[8rem] md:h-[14rem] md:w-[14rem] lg:h-[20rem] lg:w-[20rem] text-2xl md:text-3xl lg:text-5xl rounded-3xl font-lato"> {{ text }}</button>
+  <div class="hover:border-4 m-10 p-2  rounded-3xl">
+    <button class="w-[300px] bg-primary text-3xl rounded-2xl font-lato p-3  text-white 
+    shadow-2xl"> {{ text }}</button>
+  </div>    
 </template>
