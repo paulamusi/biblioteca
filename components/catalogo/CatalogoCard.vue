@@ -3,7 +3,8 @@ defineProps({
   titulo: String,
   autor: String,
   imagen: String,
-  id: Number
+  id: Number,
+  disponible: Boolean,
 });
 </script>
 <template>
@@ -14,7 +15,7 @@ defineProps({
        <div class="w-full flex flex-col justify-end">
           <p class="font-bold">{{ titulo }}</p>
           <p class="font-light">{{ autor }}</p>
-          <p class="font-light">Disponible</p>
+          <p class="font-light">{{ disponible ? 'Disponible' : 'No disponible' }}</p>
        </div>
     </div>
   </NuxtLink>

@@ -26,7 +26,7 @@ if (error.value) {
       <div>
         <h1 class="text-3xl font-bold">{{ libro.titulo }}</h1>
         <p class="text-xl text-gray-600 mt-2">{{ libro.autor }}</p>
-        <p class="text-xl text-gray-600 mt-2">No disponible</p>
+        <p class="text-xl text-gray-600 mt-2">{{ libro.disponible ? 'Disponible' : 'No disponible' }}</p>
       </div>
     </div>
     <p class="container mx-auto py-6 text-xl font-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, blanditiis saepe? 

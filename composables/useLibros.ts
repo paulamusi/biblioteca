@@ -16,10 +16,20 @@ export const useLibros = () => {
   const resultados = ref<Libro[]>([]);
   const busquedaLibro = ref<string>("");
 
-  const agregarLibro = async (libro: Libro) => {
-    const { error } = await client.from("libros").insert([libro]);
+  const agregarLibro = async (libro: Libro, generosIds: number[]) => {
+    const { data, error } = await client.from("libros").insert([libro]).select("id").single();
     if (error) throw error;
+    const libroId = data.id;
+    if (generosIds.length > 0) {
+      const relaciones = generosIds.map((generoId) => ({
+        libro_id: libroId,
+        genero_id: generoId,
+      }));
+      const { error: relacionError } = await client.from("librosGeneros").insert(relaciones);
+      if (relacionError) throw relacionError;
+    }
   };
+  
 
   const obtenerLibros = async () => {
     const { data, error } = await client.from("libros").select("*");
@@ -57,6 +67,32 @@ export const useLibros = () => {
     resultados.value = [libro];  
   };
 
+  const obtenerLibrosRecomendados = async (): Promise<Libro[]> => {
+    const { data, error } = await client
+      .from("libros")
+      .select("*")
+      .eq("recomendado", true);
+  
+    if (error) {
+      console.error("Error al obtener libros recomendados:", error.message);
+      return [];
+    }
+  
+    return data as Libro[];
+  };
+
+  const obtenerLibrosPorGenero = async (generoId: number): Promise<Libro[]> => {
+    const { data, error } = await client
+      .from("librosGeneros")
+      .select("libros(*)")
+      .eq("genero_id", generoId);
+    if (error) {
+      console.error("Error al obtener libros por género:", error.message);
+      return [];
+    }
+    return (data ?? []).map((item) => item.libros) as Libro[];
+  };
+
   const actualizarLibro = async (libro: Libro) => {
     const { id, created_at, ...libroParaActualizar } = libro;
     if (id === undefined) {
@@ -78,5 +114,6 @@ export const useLibros = () => {
     if (error) throw error;
   };
 
-  return { agregarLibro, obtenerLibros, obtenerLibroPorId, actualizarLibro, resultados, busquedaLibro, buscarLibros,  seleccionarLibro};
+  return { agregarLibro, obtenerLibros, obtenerLibroPorId, actualizarLibro, 
+    resultados, busquedaLibro, buscarLibros,  seleccionarLibro, obtenerLibrosPorGenero, obtenerLibrosRecomendados};
 };

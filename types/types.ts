@@ -29,3 +29,19 @@ export type Prestamo = Omit<
   id?: number;
   created_at?: string;
 };
+
+export type Genero = Omit<
+  Database["public"]["Tables"]["genero"]["Row"],
+  "id" | "created_at"
+> & {
+  id?: number;
+  created_at?: string;
+};
+
+export type Noticia = Omit<
+  Database["public"]["Tables"]["noticias"]["Row"],
+  "id" | "created_at"
+> & {
+  id?: number;
+  created_at?: string;
+};

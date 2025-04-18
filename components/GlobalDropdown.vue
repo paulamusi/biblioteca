@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const props = defineProps<{
-  buttonText: string
-  items: string[]
+const props = withDefaults(defineProps<{
+  buttonText: string,
+  items: string[],
+  customTextClass?: string,
+  customTextColor?: string,
+}>(), {
+  customTextClass: 'text-2xl',
+  customTextColor: 'text-white',
+})
+
+const emit = defineEmits<{
+  (e: 'item-click', item: string): void
 }>()
 
 const isOpen = ref<boolean>(false)
@@ -13,21 +22,22 @@ const toggleDropdown = (): void => {
 }
 
 const selectItem = (item: string): void => {
-  console.log(`Item selected: ${item}`)
+  emit('item-click', item)
   isOpen.value = false 
 }
 </script>
 <template>
     <div class="relative">
       <button
-        class="text-white p-2 rounded-xl border-2 text-2xl w-[270px]"
+        class="p-2 rounded-xl border-2 w-[270px]"
+        :class="[customTextClass, customTextColor]"
         @click="toggleDropdown"
       >
         {{ buttonText }}
       </button>
       <div
         v-if="isOpen"
-        class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg"
+        class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg overflow-auto max-h-[400px]"
       >
         <ul>
           <li

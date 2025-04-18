@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useLibros } from "~/composables/useLibros";
+import type { Libro } from "~/types/types";
 
+const { obtenerLibrosRecomendados } = useLibros();
+
+const { data: librosRecomendados, error } = await useAsyncData<Libro[]>("libro", obtenerLibrosRecomendados,);
+if (error.value) {
+  console.error("Error al obtener los libros:", error.value);
+}
 const sliderRef = ref<HTMLElement | null>(null)
 
 const scrollLeft = () => {
@@ -15,16 +23,6 @@ const scrollRight = () => {
   }
 }
 
-const books = [
-  { titulo: "Libro 1", autor: "Autor 1" },
-  { titulo: "Libro 2", autor: "Autor 2" },
-  { titulo: "Libro 3", autor: "Autor 3" },
-  { titulo: "Libro 4", autor: "Autor 4" },
-  { titulo: "Libro 5", autor: "Autor 5" },
-  { titulo: "Libro 6", autor: "Autor 6" },
-  { titulo: "Libro 7", autor: "Autor 7" },
-  { titulo: "Libro 8", autor: "Autor 8" }
-]
 </script>
 
 <template>
@@ -42,10 +40,10 @@ const books = [
                w-full max-w-screen-xl justify-start"
       >
         <HomeCardSlider 
-          v-for="(book, index) in books" 
+          v-for="(libro, index) in librosRecomendados" 
           :key="index" 
-          :titulo="book.titulo" 
-          :autor="book.autor" 
+          :titulo="libro.titulo" 
+          :autor="libro.autor" 
           class="snap-center flex-shrink-0"
         />
       </div>
