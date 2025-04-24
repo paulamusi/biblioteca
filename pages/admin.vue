@@ -10,7 +10,7 @@ const selectedComponent = ref("AdminRegistrarLibro");
 
 const menuItems = [
   { name: "Registrar Libro", component: "AdminRegistrarLibro" },
-  { name: "Usuarios", component: "AdminRegistrarUsuario" },
+  { name: "Usuarios", component: "AdminVisualizarUsuarios" },
   { name: "Préstamos", component: "AdminRegistrarPrestamo" },
   { name: "Escribir Noticia", component: "AdminEscribirNoticia" },
 
@@ -18,6 +18,10 @@ const menuItems = [
 
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value;
+};
+
+const cambiarComponente = (nuevoComponente: string) => {
+  selectedComponent.value = nuevoComponente;
 };
 </script>
 
@@ -51,7 +55,10 @@ const toggleSidebar = () => {
 
     <div class="flex-1 ml-20 p-6 md:ml-0">
         <AdminRegistrarLibro v-show="selectedComponent === 'AdminRegistrarLibro'" />
-        <AdminRegistrarUsuario v-show="selectedComponent === 'AdminRegistrarUsuario'" />
+        <AdminVisualizarUsuarios 
+        v-show="selectedComponent === 'AdminVisualizarUsuarios'"
+        @cambiarComponente="cambiarComponente"
+        />
         <AdminEscribirNoticia v-show="selectedComponent === 'AdminEscribirNoticia'" />
         <AdminRegistrarPrestamo v-show="selectedComponent === 'AdminRegistrarPrestamo'" />
     </div>
