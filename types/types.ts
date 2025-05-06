@@ -30,6 +30,18 @@ export type Prestamo = Omit<
   created_at?: string;
 };
 
+export type PrestamoConLibro = {
+  id: number;
+  fecha: string;
+  tituloLibro: string;
+  devuelto: boolean;
+  fechaDevolucion: string | null;
+};
+
+export type PrestamoVencidoConUsuario = PrestamoConLibro & {
+  nombreUsuario: string; 
+};
+
 export type Genero = Omit<
   Database["public"]["Tables"]["genero"]["Row"],
   "id" | "created_at"

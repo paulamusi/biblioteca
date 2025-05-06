@@ -39,7 +39,11 @@ if (errorGeneros.value) {
   console.error("Error al obtener los géneros:", errorGeneros.value);
 }
 
-const generoItems = computed(() => generos.value?.map((g) => g.genero) ?? []);
+const generoItems = computed(() =>
+  (generos.value ?? [])
+    .map((g) => g.genero)
+    .filter((g): g is string => g !== null)
+);
 
 const seleccionarGenero = async (genero: string) => {
   generoSeleccionado.value = genero;
