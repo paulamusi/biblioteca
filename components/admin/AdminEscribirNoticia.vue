@@ -1,7 +1,7 @@
 <script setup lang="ts">
 </script>
 <template>
-    <div class="max-w-lg mx-auto p-4 border rounded-lg shadow-md"
+    <div class="max-w-lg  mx-auto p-4 border rounded-lg shadow-md"
     >
         <h1 class="text-xl font-bold">Publicar noticias/informacion</h1>
         <form>

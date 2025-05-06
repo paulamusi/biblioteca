@@ -4,6 +4,11 @@ import type { Usuario } from "~/types/types";
 
 const { agregarUsuario } = useUsuarios();
 
+const emit = defineEmits(["volver"]);
+const volver = () => {
+  emit("volver");
+};
+
 const nombre = ref("");
 const apellido = ref("");
 const direccion = ref("");
@@ -38,7 +43,11 @@ const submitForm = async () => {
 </script>
 
 <template>
-    <div class="max-w-lg mx-auto p-4 border rounded-lg shadow-md">
+    <div class="w-full flex flex-col items-center p-4">
+        <button @click="volver" class="self-end mb-10">
+        ← Volver a usuarios
+        </button>
+    <div class="w-full max-w-lg p-4 border rounded-lg shadow-md flex flex-col justify-center">
         <h2 class="text-2xl font-semibold mb-4">Registrar Usuario</h2>
 
         <form @submit.prevent="submitForm">
@@ -106,4 +115,5 @@ const submitForm = async () => {
             </button>
         </form>
     </div>
+</div>
 </template>

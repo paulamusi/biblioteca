@@ -18,10 +18,12 @@ export const useUsuarios = () => {
     if (error) throw error;
   };
 
-  const obtenerUsuarios = async (usuario: Usuario) => {
-    const { error } = await client.from("usuarios").select("*");
+  const obtenerUsuarios = async () => {
+    const { data, error } = await client.from("usuarios").select("*");
     if (error) throw error;
+    return data;
   };
+
   const buscarUsuarioPorNombreApellido = async (nombre: string, apellido: string) => {
     if (!nombre || !apellido) {
       console.error("El nombre y apellido son obligatorios para la búsqueda");
@@ -43,6 +45,20 @@ export const useUsuarios = () => {
     }
     return data; 
   };
+
+  const buscarUsuarioPorId = async (id: number) => {
+    const { data, error } = await client
+      .from("usuarios")
+      .select("*")
+      .eq("id", id)
+      .single()
+  
+    if (error) {
+      console.error("Error al buscar por ID:", error.message)
+      return null
+    }
+    return data
+  }
   
   const actualizarUsuario = async (usuario: Usuario) => {
     const { id, created_at, ...usuarioParaActualizar } = usuario;
@@ -65,5 +81,5 @@ export const useUsuarios = () => {
     if (error) throw error;
   };
 
-  return { agregarUsuario, obtenerUsuarios, usuario, actualizarUsuario, buscarUsuarioPorNombreApellido };
+  return { agregarUsuario, obtenerUsuarios, usuario, actualizarUsuario, buscarUsuarioPorNombreApellido, buscarUsuarioPorId };
 };

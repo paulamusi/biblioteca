@@ -31,7 +31,7 @@ export type Database = {
         Row: {
           autor: string | null
           created_at: string
-          disponible: boolean | null
+          disponible: boolean
           id: number
           pais: string | null
           recomendado: boolean | null
@@ -42,7 +42,7 @@ export type Database = {
         Insert: {
           autor?: string | null
           created_at?: string
-          disponible?: boolean | null
+          disponible: boolean
           id?: number
           pais?: string | null
           recomendado?: boolean | null
@@ -53,7 +53,7 @@ export type Database = {
         Update: {
           autor?: string | null
           created_at?: string
-          disponible?: boolean | null
+          disponible?: boolean
           id?: number
           pais?: string | null
           recomendado?: boolean | null
@@ -123,27 +123,30 @@ export type Database = {
       prestamos: {
         Row: {
           created_at: string
+          devuelto: boolean | null
           fecha_devolucion: string | null
           fecha_prestamo: string | null
           id: number
-          libro_id: number | null
-          usuario_id: number | null
+          libro_id: number
+          usuario_id: number
         }
         Insert: {
           created_at?: string
+          devuelto?: boolean | null
           fecha_devolucion?: string | null
           fecha_prestamo?: string | null
           id?: number
-          libro_id?: number | null
-          usuario_id?: number | null
+          libro_id: number
+          usuario_id: number
         }
         Update: {
           created_at?: string
+          devuelto?: boolean | null
           fecha_devolucion?: string | null
           fecha_prestamo?: string | null
           id?: number
-          libro_id?: number | null
-          usuario_id?: number | null
+          libro_id?: number
+          usuario_id?: number
         }
         Relationships: [
           {
@@ -164,33 +167,33 @@ export type Database = {
       }
       usuarios: {
         Row: {
-          apellido: string | null
+          apellido: string
           cedula: number | null
           comentarios: string | null
           created_at: string
           direccion: string | null
           id: number
-          nombre: string | null
+          nombre: string
           telefono: number | null
         }
         Insert: {
-          apellido?: string | null
+          apellido: string
           cedula?: number | null
           comentarios?: string | null
           created_at?: string
           direccion?: string | null
           id?: number
-          nombre?: string | null
+          nombre: string
           telefono?: number | null
         }
         Update: {
-          apellido?: string | null
+          apellido?: string
           cedula?: number | null
           comentarios?: string | null
           created_at?: string
           direccion?: string | null
           id?: number
-          nombre?: string | null
+          nombre?: string
           telefono?: number | null
         }
         Relationships: []

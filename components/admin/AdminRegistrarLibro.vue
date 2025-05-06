@@ -75,7 +75,7 @@ const resetearFormulario = () => {
 </script>
 
 <template>
-  <div class="max-w-lg mx-auto p-4 border rounded-lg shadow-md">
+  <div class="w-full max-w-lg mx-auto p-4 border rounded-lg shadow-md">
     <h2 class="text-2xl font-semibold mb-4">Registrar Libro</h2>
 
     <form>

@@ -39,6 +39,7 @@ if (!usuarioEncontrado) {
     libro_id: libroSeleccionado.id,
     fecha_prestamo: fechaPrestamo.value,
     fecha_devolucion: fechaDevolucion.value,
+    devuelto: false,
   };
   try {
     await registrarPrestamo(prestamo);
@@ -55,7 +56,7 @@ watch(fechaPrestamo, (nuevaFecha) => {
 </script>
 
 <template>
-    <div class="max-w-lg mx-auto p-4 border rounded-lg shadow-md">
+    <div class=" w-full max-w-lg mx-auto p-4 border rounded-lg shadow-md">
       <h2 class="text-2xl font-semibold mb-4">Registrar Préstamo</h2>
       <form @submit.prevent="submitForm">
         <!-- Usuario -->
